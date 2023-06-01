@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Zamówienie obiadu</title>
+    <style>
+        body {
+            background-image: url("Zupatło.png");
+            background-size: cover;
+        }
+ code
+    h1 {
+        text-align: center;
+        font-size: 40px;
+        margin-top: 30px;
+    }
+
+    form {
+        background-color: white;
+        width: 400px;
+        padding: 20px;
+        margin: 0 auto;
+    }
+
+    h2 {
+        text-align: center;
+    }
+
+    label {
+        display: block;
+        margin-top: 10px;
+    }
+
+    input[type="text"],
+    select,
+    input[type="checkbox"] {
+        width: 100%;
+    }
+
+    input[type="submit"] {
+        margin-top: 20px;
+    }
+</style>
+</head>
+<body>
+    <h2>Zamówienie obiadu</h2>
+    <form onsubmit="return showSummary()">
+    <label for="imie">Imię:</label>
+    <input type="text" id="imie" required>
+
+    <label for="nazwisko">Nazwisko:</label>
+    <input type="text" id="nazwisko" required>
+
+    <label for="telefon">Telefon:</label>
+    <input type="text" id="telefon" required>
+
+    <label for="email">Email:</label>
+    <input type="email" id="email" required>
+
+    <label for="miasto">Miasto:</label>
+    <input type="text" id="miasto" required>
+
+    <label for="ulica">Ulica:</label>
+    <input type="text" id="ulica" required>
+
+    <label for="dom">Numer domu:</label>
+    <input type="text" id="dom" required>
+
+    <label for="mieszkanie">Numer mieszkania:</label>
+    <input type="text" id="mieszkanie">
+
+    <label for="zupa">Zupa:</label>
+    <select id="zupa">
+        <option value="">Wybierz zupę</option>
+        <option value="Rosół">Rosół - cena: 10 zł</option>
+        <option value="Pomidorowa">Pomidorowa - cena: 12 zł</option>
+        <option value="Grzybowa">Grzybowa - cena: 15 zł</option>
+    </select>
+
+    <label for="drugie_danie">Drugie danie:</label>
+    <select id="drugie_danie">
+        <option value="">Wybierz drugie danie</option>
+        <option value="Pierogi z mięsem">Pierogi z mięsem - cena: 20 zł</option>
+        <option value="Ryba z frytkami">Ryba z frytkami - cena: 25 zł</option>
+        <option value="Kotlet Schabowy">Kotlet Schabowy - cena: 18 zł</option>
+    </select>
+
+    <label for="deser">Deser:</label>
+    <select id="deser">
+        <option value="">Wybierz deser</option>
+        <option value="Lody czekoladowe">Lody czekoladowe - cena: 5 zł</option>
+        <option value="Sernik">Sernik - cena: 8 zł</option>
+        <option value="Lody Śmietankowe">Lody Śmietankowe - cena: 6 zł</option>
+    </select>
+
+    <label for="napoj">Napój:</label>
+    <select id="napoj">
+        <option value="">Wybierz napój</option>
+        <option value="CocaCola">CocaCola - cena: 3 zł</option>
+        <option value="Sprite">Sprite - cena: 3 zł</option>
+        <option value="Fanta">Fanta - cena: 3 zł</option>
+    </select>
+
+    <label for="vat">VAT:</label>
+    <input type="checkbox" id="vat">
+
+    <label for="znizka">Zniżka:</label>
+    <input type="checkbox" id="znizka">
+
+    <input type="submit" value="Zamów">
+</form>
+
+<script>
+    function showSummary() {
+        var imie = document.getElementById("imie").value;
+        var nazwisko = document.getElementById("nazwisko").value;
+        var telefon = document.getElementById("telefon").value;
+        var email = document.getElementById("email").value;
+        var miasto = document.getElementById("miasto").value;
+        var ulica = document.getElementById("ulica").value;
+        var dom = document.getElementById("dom").value;
+        var mieszkanie = document.getElementById("mieszkanie").value;
+        var zupa = document.getElementById("zupa").value;
+        var drugie_danie = document.getElementById("drugie_danie").value;
+        var deser = document.getElementById("deser").value;
+        var napoj = document.getElementById("napoj").value;
+        var vat = document.getElementById("vat").checked;
+        var znizka = document.getElementById("znizka").checked;
+
+        // ceny
+        var cena_zupa = 0;
+        var cena_drugie_danie = 0;
+        var cena_deser = 0;
+        var cena_napoj = 0;
+
+        switch (zupa) {
+            case "Rosół":
+                cena_zupa = 10;
+                break;
+            case "Pomidorowa":
+                cena_zupa = 12;
+                break;
+            case "Grzybowa":
+                cena_zupa = 15;
+                break;
+        }
+
+        switch (drugie_danie) {
+            case "Pierogi z mięsem":
+                cena_drugie_danie = 20;
+                break;
+            case "Ryba z frytkami":
+                cena_drugie_danie = 25;
+                break;
+            case "Kotlet Schabowy":
+                cena_drugie_danie = 18;
+                break;
+        }
+
+        switch (deser) {
+            case "Lody czekoladowe":
+                cena_deser = 5;
+                break;
+            case "Sernik":
+                cena_deser = 8;
+                break;
+            case "Lody Śmietankowe":
+                cena_deser = 6;
+                break;
+        }
+
+        switch (napoj) {
+            case "CocaCola":
+            case "Sprite":
+            case "Fanta":
+                cena_napoj = 3;
+                break;
+        }
+
+        var cena = cena_zupa + cena_drugie_danie + cena_deser + cena_napoj;
+        var opis_zamowienia = "";
+
+        if (zupa) {
+            opis_zamowienia += "Zupa: " + zupa + " - cena: " + cena_zupa + " zł<br>";
+        }
+
+        if (drugie_danie) {
+            opis_zamowienia += "Drugie danie: " + drugie_danie + " - cena: " + cena_drugie_danie + " zł<br>";
+        }
+
+        if (deser) {
+            opis_zamowienia += "Deser: " + deser + " - cena: " + cena_deser + " zł<br>";
+        }
+
+        if (napoj) {
+            opis_zamowienia += "Napój: " + napoj + " - cena: " + cena_napoj + " zł<br>";
+        }
+
+        if (vat) {
+            cena *= 1.23;
+        }
+
+        if (znizka) {
+            cena *= 0.9;
+        }
+
+        var podsumowanie = "Dane zamawiającego:<br>" +
+            "Imię: " + imie + "<br>" +
+            "Nazwisko: " + nazwisko + "<br>" +
+            "Telefon: " + telefon + "<br>" +
+            "Email: " + email + "<br>" +
+            "Miasto: " + miasto + "<br>" +
+            "Ulica: " + ulica + "<br>" +
+            "Numer domu: " + dom + "<br>" +
+            "Numer mieszkania: " + mieszkanie + "<br><br>" +
+            "Zamówienie:<br>" +
+            opis_zamowienia + "<br>" +
+            "Cena: " + cena.toFixed(2) + " zł";
+
+        var summaryElement = document.createElement("div");
+        summaryElement.innerHTML = podsumowanie;
+        document.body.appendChild(summaryElement);
+
+        return false;
+    }
+</script>
+</body>
+</html>
